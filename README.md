@@ -65,6 +65,7 @@ Bundler will be run with:
 - database\_master\_role: if a role name is provided, a Chef search will be run to find a node with the role in the same environment as the current role. If a node is found, its IP address will be used when rendering the `database.yml` file, but see the "Database block parameters" section below
 - database\_template: the name of the template that will be rendered to create the `database.yml` file; if specified it will be looked up in the application cookbook. Defaults to "database.yml.erb" from this cookbook
 - database: a block containing additional parameters for configuring the database connection
+- environment_name: an optional block that would allow you to set the environment to whatever you wish (defaults to the node's chef_environment)
 - precompile\_assets: if true, precompile assets for the Rails 3 asset pipeline. The default is nil, in which case we will try to autodetect whether the pipeline is in use by looking for `config/assets.yml`
 - remove\_assets\_before\_precompile: if true, removes the assets folder from the filesystem before precompiling (useful for asset_sync)
 - rvm_path: A string containing the path to the rvm installation you wish to use for the application Ex: "/home/deploy_user/.rvm"; Defaults to nil
