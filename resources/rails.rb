@@ -23,7 +23,7 @@ include ApplicationCookbook::ResourceBase
 attribute :database_master_role, :kind_of => [String, NilClass], :default => nil
 # Actually defaults to "database.yml.erb", but nil means it wasn't set by the user
 attribute :database_template, :kind_of => [String, NilClass], :default => nil
-attribute :environment_name, :kind_of => [String], :default => node.chef_environment
+attribute :runtime_environment, :kind_of => [String], :default => node.chef_environment
 attribute :rvm_path, :kind_of => [String, NilClass], default: nil
 attribute :rvm_ruby, :kind_of => [String, NilClass], default: nil
 attribute :gems, :kind_of => [Array, Hash], :default => []

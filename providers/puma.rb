@@ -64,7 +64,7 @@ action :before_restart do
     bind new_resource.bind
     owner new_resource.owner
 
-    environment new_resource.environment_name
+    environment new_resource.runtime_environment
     workers new_resource.workers
 
     pid new_resource.pid
