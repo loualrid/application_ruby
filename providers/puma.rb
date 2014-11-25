@@ -57,6 +57,8 @@ action :before_restart do
 
   new_resource = @new_resource
 
+  original_rails_resource = rails_resource
+
   puma_config new_resource.name do
     directory ::File.join( new_resource.app_path) #root of the app (current / releases / repo / shared )
     working_dir ::File.join( new_resource.app_path, 'current')
@@ -64,7 +66,7 @@ action :before_restart do
     bind new_resource.bind
     owner new_resource.owner
 
-    environment rails_resource.environment_name
+    environment original_rails_resource.environment["RAILS_ENV"]
     workers new_resource.workers
 
     pid new_resource.pid
