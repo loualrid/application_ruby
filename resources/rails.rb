@@ -29,6 +29,7 @@ attribute :rvm_ruby, :kind_of => [String, NilClass], default: nil
 attribute :gems, :kind_of => [Array, Hash], :default => []
 attribute :bundler, :kind_of => [NilClass, TrueClass, FalseClass], :default => nil
 attribute :bundler_deployment, :kind_of => [NilClass, TrueClass, FalseClass], :default => nil
+attribute :bundler_with_groups, :kind_of => [Array], :default => []
 attribute :bundler_without_groups, :kind_of => [Array], :default => []
 attribute :bundle_command, :kind_of => [String, NilClass], :default => "bundle"
 attribute :bundle_options, :kind_of => [String, NilClass], :default => nil
