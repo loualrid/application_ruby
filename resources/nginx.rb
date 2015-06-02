@@ -23,3 +23,4 @@ attribute :worker_processes, kind_of: Integer, default: 1
 attribute :server_aliases, kind_of: [Array, NilClass], default: nil
 attribute :server_socket_type, kind_of: String, default: "puma"
 attribute :internal_url, kind_of: [String, NilClass], default: nil
+attribute :custom_server_configs, kind_of: [Array, NilClass], default: nil

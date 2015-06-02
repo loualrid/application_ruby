@@ -7,7 +7,11 @@ server {
 
   root <%= @path %>/current/public;
 
-  location / {
+<% @custom_configs.each do |key| %>
+  <%= key %>;
+<% end %>
+
+  location / {    
     proxy_read_timeout 300;
     proxy_connect_timeout 300;
     proxy_redirect off;
