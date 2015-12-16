@@ -38,6 +38,8 @@ attribute :stdout_path, :kind_of => [String, NilClass], :default => nil
 attribute :unicorn_command_line, :kind_of => [String, NilClass], :default => nil
 attribute :copy_on_write, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :enable_stats, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :upstart, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :runit, :kind_of => [TrueClass, FalseClass], :default => true
 attribute :runit_template_cookbook, :kind_of => String, :default => 'application_ruby'
 
 def options(*args, &block)
