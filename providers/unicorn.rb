@@ -34,11 +34,13 @@ action :before_compile do
 
   unless new_resource.restart_command
     new_resource.restart_command do
-      if new_resource.runit
+      unicorn_resource = @new_resource
+
+      if unicorn_resource.runit
         execute "/etc/init.d/#{new_resource.name} hup" do
           user "root"
         end
-      elsif new_resource.upstart
+      elsif unicorn_resource.upstart
         service "#{new_resource.name}-unicorn" do
           provider Chef::Provider::Service::Upstart
           action :restart
