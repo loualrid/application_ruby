@@ -62,7 +62,7 @@ action :before_restart do
 
   new_resource = @new_resource
 
-  unicorn_config "/etc/unicorn/#{new_resource.name}.rb" do
+  unicorn_config new_resource.name do
     listen(new_resource.listen || { new_resource.port => new_resource.options })
     working_directory ::File.join(new_resource.path, 'current')
     worker_timeout new_resource.worker_timeout
@@ -80,6 +80,7 @@ action :before_restart do
     copy_on_write new_resource.copy_on_write
     enable_stats new_resource.enable_stats
     upstart new_resource.upstart
+    base_path new_resource.base_path
   end
 
   if new_resource.runit
