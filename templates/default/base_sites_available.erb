@@ -9,7 +9,7 @@ server {
 
 <% @custom_configs.each do |key| %>
   <%= key %>;
-<% end %>
+<% end unless @custom_configs.nil? %>
 
   location / {    
     proxy_read_timeout 300;
