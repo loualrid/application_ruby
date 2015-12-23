@@ -34,14 +34,8 @@ action :before_compile do
 
   unless new_resource.restart_command
     new_resource.restart_command do
-      if new_resource.runit
-        execute "/etc/init.d/#{new_resource.name} hup" do
-          user "root"
-        end
-      elsif new_resource.monit
-        execute ""
-      elsif new_resource.upstart
-
+      execute "/etc/init.d/#{new_resource.name} hup" do
+        user "root"
       end
     end
   end
@@ -78,25 +72,22 @@ action :before_restart do
     unicorn_command_line new_resource.unicorn_command_line
     copy_on_write new_resource.copy_on_write
     enable_stats new_resource.enable_stats
-    upstart new_resource.upstart
   end
 
-  if new_resource.runit
-    runit_service new_resource.name do
-      run_template_name 'unicorn'
-      log_template_name 'unicorn'
-      owner new_resource.owner if new_resource.owner
-      group new_resource.group if new_resource.group
+  runit_service new_resource.name do
+    run_template_name 'unicorn'
+    log_template_name 'unicorn'
+    owner new_resource.owner if new_resource.owner
+    group new_resource.group if new_resource.group
 
-      cookbook new_resource.runit_template_cookbook
-      options(
-        :app => new_resource,
-        :bundler => new_resource.bundler,
-        :bundle_command => new_resource.bundle_command,
-        :rails_env => new_resource.environment_name,
-        :smells_like_rack => ::File.exists?(::File.join(new_resource.path, "current", "config.ru"))
-      )
-    end
+    cookbook new_resource.runit_template_cookbook
+    options(
+      :app => new_resource,
+      :bundler => new_resource.bundler,
+      :bundle_command => new_resource.bundle_command,
+      :rails_env => new_resource.environment_name,
+      :smells_like_rack => ::File.exists?(::File.join(new_resource.path, "current", "config.ru"))
+    )
   end
 
 end
