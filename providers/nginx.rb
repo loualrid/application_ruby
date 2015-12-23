@@ -53,7 +53,7 @@ action :before_deploy do
       log_dir:            node['nginx']['log_dir'],
       internal_url:       new_resource.internal_url,
       custom_configs:     new_resource.custom_server_configs,
-      socket:             "unix:///var/www/vhosts/#{ new_resource.application.name }/shared/#{ new_resource.server_socket_type }/#{ new_resource.application.name }.sock"
+      socket:             "unix://#{ new_resource.application.shared_path }/puma/#{ new_resource.application.name }.sock"
     )
     if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{ new_resource.application.name }")
       notifies :reload, 'service[nginx]'

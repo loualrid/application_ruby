@@ -34,17 +34,8 @@ action :before_compile do
 
   unless new_resource.restart_command
     new_resource.restart_command do
-      unicorn_resource = @new_resource
-
-      if unicorn_resource.runit
-        execute "/etc/init.d/#{new_resource.name} hup" do
-          user "root"
-        end
-      elsif unicorn_resource.upstart
-        service "#{new_resource.name}-unicorn" do
-          provider Chef::Provider::Service::Upstart
-          action :restart
-        end
+      execute "/etc/init.d/#{new_resource.name} hup" do
+        user "root"
       end
     end
   end
@@ -63,6 +54,8 @@ end
 action :before_restart do
 
   new_resource = @new_resource
+
+  original_rails_resource = rails_resource
 
   unicorn_config new_resource.name do
     listen(new_resource.listen || { new_resource.port => new_resource.options })
@@ -83,6 +76,7 @@ action :before_restart do
     enable_stats new_resource.enable_stats
     upstart new_resource.upstart
     base_path new_resource.base_path
+    environment original_rails_resource.environment["RAILS_ENV"]
   end
 
   if new_resource.runit
