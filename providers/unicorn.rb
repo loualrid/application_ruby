@@ -38,11 +38,10 @@ action :before_compile do
         execute "/etc/init.d/#{new_resource.name} hup" do
           user "root"
         end
+      elsif new_resource.monit
+        execute ""
       elsif new_resource.upstart
-        service "#{new_resource.name}-unicorn" do
-          provider Chef::Provider::Service::Upstart
-          action :restart
-        end
+
       end
     end
   end
